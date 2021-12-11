@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    {% load humanize %}
+    {% load static %}
+    {% include 'tenantRecords/headscripts.html' %}
+
+	<body>
+		<div class="container">
+			<header>
+				<h1>The capital Hub <span>Tenant Records</span></h1>
+                {% include 'tenantRecords/navbar.html' %}
+			</header>
+			<div class="component">
+				<table class="">
+					<thead>
+						<tr>
+							<th>Shop Name</th>
+                            <th>Suite No</th>
+                            <th>Suite Size</th>
+                            <th>Month</th>
+                            <th>Rate</th>
+                            <th>Rent</th>
+                            <th>Discounted Rent</th>
+                            <th>Service Charge</th>
+                            <th>Legal Fees</th>
+                            <th>VAT</th>
+                            <th>Total</th>
+                            <th>Discount</th>
+                            <th>Payment Recieved</th>
+                            <th>Outstanding Payment</th>
+                            <th><i>Rent Rec</i></th>
+                            <th><i>SC Rec</i></th>
+                            <th><i>Zakah Rec</i></th>
+                            <th><i>Vat Rec</i></th>
+                            <th><i>Legal Rec</i></th>
+						</tr>
+					</thead>
+					<tbody>{% if shops %}
+						<tr>{% for shop in shops %}
+							<a href="{% url 'tenantRecords:detail' shop.number %}" ><th><a style="color: #ffffff" href="{% url 'tenantRecords:detail' shop.number %}" >{{ shop.businessname }}<a style="color: #ffffff" href="/admin/tenantRecords/shop/{{ shop.number }} "> Adm</a></a></th> </a>
+{#							<a href="/admin/tenantRecords/shop/{{ shop.number }}/" ><th><a style="color: #ffffff" href="/admin/tenantRecords/shop/{{ shop.number }} ">Adm</a></th> </a>#}
+                            <td> <a href="{% url 'tenantRecords:detail_printable' shop.number %}">{{ shop.number }}</a></td>
+                            <td>{{ shop.squarefeet }}</td>
+                            <td>{{ shop.tenancystartdate | date:"M Y" }}</td>
+                            <td>{{ shop.rate | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.rent | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.discountedrent | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.servicecharge | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.legalfees | floatformat:2| intcomma }}</td>`
+                            <td>{{ shop.vat | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.totaltobepaid | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.discount | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.paymentrec | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.outstandingpayment | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.rentrec | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.servicechargerec | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.zakahrec | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.vatrec | floatformat:2| intcomma }}</td>
+                            <td>{{ shop.legalrec | floatformat:2| intcomma }}</td>
+						</tr>{% endfor %}
+                    {% endif %}
+
+					</tbody>
+				</table>
+				<p class="filler"></p>
+			</div>
+
+		</div><!-- /container -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+		<script src="{% static "tenantRecords/js/jquery.stickyheader.js" %}"></script>
+		<script src="{% static "tenantRecords/js/jquery.ba-throttle-debounce.min.js" %}"></script>
+	</body>
+</html>

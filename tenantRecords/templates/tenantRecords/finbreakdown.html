@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Fin Breakdown - The capital Hub</title>
+</head>
+
+    {% load humanize %}
+    {% load static %}
+    {% include 'tenantRecords/headscripts.html' %}
+
+<body>
+		<div class="container">
+			<header>
+				<h1>The capital Hub <span>Total Received Payments</span> </h1>
+                {% include 'tenantRecords/navbar.html' %}
+			</header>
+        </div>
+
+    <div class="component" >
+        <table class="" style="table-layout: fixed">
+            <thead>
+						<tr>
+							<th>Suite</th>
+                            <th>Shop Name</th>
+
+                            <th>Received</th>
+                            <th>Outstanding</th>
+                            <th>Rent</th>
+                            <th>OutRent</th>
+                            <th>SC</th>
+                            <th>OutSC</th>
+                            <th>Total Payable</th>
+						</tr>
+			</thead>
+            <tbody>
+            {% for shop in shops %}
+                    <tr>
+                        <td>{{ shop.number }}</td>
+                        <td>{{ shop.businessname }}</td>
+                        <!--<td><a href="{% url 'tenantRecords:detail' shop.number %}">{{ shop.businessname }} </a></td>-->
+
+                        <td> {{ shop.paymentrec | floatformat:2| intcomma}} </td>
+                        <td> {{ shop.outstandingpayment | floatformat:2| intcomma}} </td>
+
+                        <td> {{ shop.discountedrent | floatformat:2| intcomma}} </td>
+                        <td> {{ shop.outrent | floatformat:2| intcomma}} </td>
+                        <td> {{ shop.servicecharge | floatformat:2| intcomma}} </td>
+                        <td> {{ shop.outsc | floatformat:2| intcomma}} </td>
+                        <td> {{ shop.totaltobepaid | floatformat:2| intcomma}} </td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

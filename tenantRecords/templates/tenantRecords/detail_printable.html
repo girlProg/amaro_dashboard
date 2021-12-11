@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    {% load humanize %}
+    {% load static %}
+    {% include 'tenantRecords/headscripts.html' %}
+
+	<body>
+		<div class="container">
+			<header>
+				<h1>Gallarz Investments Ltd <span>The capital Hub - Business Partner Records </span><span>{{ shop.businessname }} - Suite {{ shop.number }}</span></h1>
+                {% include 'tenantRecords/navbar.html' %}
+			</header>
+			<div class="component">
+                <h1>Tenant Information</h1>
+                <table class="">
+                    <tbody>
+
+                    <tr><th>Name</th><td>{{ shop.tenant.name }}</td></tr>
+                    <tr><th>Number</th><td>{{ shop.tenant.phonenumber }}</td></tr>
+                    <tr><th>Address</th><td>{{ shop.tenant.houseaddress }}</td></tr>
+                    </tbody>
+                </table>
+
+                <h1>Suite Details</h1>
+				<table>
+                    <tbody>
+                        <tr>
+                            <th>Suite No</th> <td> {{ shop.businessname }} - Suite {{ shop.number }}</td>
+						</tr><tr>
+							<th>Rent</th> <td>{{ shop.rent | floatformat:2| intcomma  }}{% include 'tenantRecords/paymenteval.html' with val=shop.haspaidrent %}
+						</tr><tr>
+							<th>Service Charge</th> <td>{{ shop.servicecharge | floatformat:2| intcomma }}{% include 'tenantRecords/paymenteval.html' with val=shop.haspaidservicecharge %}
+						</tr><tr>
+							<th>Legal Fees</th> <td>{{ shop.legalfees | floatformat:2| intcomma }}{% include 'tenantRecords/paymenteval.html' with val=shop.haspaidlegalfees %}
+						</tr><tr>
+							<th>VAT</th> <td>{{ shop.vat | floatformat:2| intcomma }}</td> {% include 'tenantRecords/paymenteval.html' with val=shop.haspaidvat %}
+						</tr><!--<tr>
+							<th>Disount</th> <td>{{ shop.discount | floatformat:2| intcomma }}</td>
+						</tr>--><tr>
+							<th>Rate</th> <td>{{ shop.rate | floatformat:2| intcomma }}</td>
+						</tr><tr>
+							<th>Payment Recieved</th> <td style="color: darkolivegreen">{{ shop.paymentrec | floatformat:2| intcomma }}</td>
+						</tr><tr>
+							<th>Outstanding Payment</th> <td style="color: red">{{ shop.outstandingpayment |floatformat:2 | intcomma }}</td>
+						</tr><tr>
+							<th>Total</th> <td>{{ shop.totaltobepaid | floatformat:2| intcomma  }}</td>
+						</tr><tr>
+							<th>Tenancy Renewal Date</th> <td>{{ shop.tenancyenddate  }}</td>
+						</tr>
+                    <tr>
+							<th>Notes</th> <td>{{ shop.notes }}</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+                <h1>View Payments Made</h1>
+                <table class="">
+                    <tbody>
+                    <tr>
+                        <td> <a href="{% url 'tenantRecords:statements' shop.number%}"> Payments</a></td>
+                    </tr><tr>
+                        <td> <a href="{% url 'tenantRecords:letters' shop.number%}"> Letters</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+			</div>
+
+		</div><!-- /container -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+		<script src="{% static "tenantRecords/js/jquery.stickyheader.js" %}"></script>
+		<script src="{% static "tenantRecords/js/jquery.ba-throttle-debounce.min.js" %}"></script>
+	</body>
+</html>

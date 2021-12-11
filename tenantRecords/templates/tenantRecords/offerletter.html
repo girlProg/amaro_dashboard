@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ shop.businessname }}</title>
+</head>
+    {% load humanize %}
+    {% load static %}
+    {% include 'tenantRecords/headscripts.html' %}
+
+	<body>
+		<div class="container">
+			{% if shop.suitenumber != '0' %}
+            <header>
+{#				<h1>Gallarz Investments Ltd <span>The capital Hub - Business Partner Records </span><span>{{ shop.businessname }} - Suite {{ shop.suitenumber }}</span></h1>#}
+{#                {% include 'tenantRecords/navbar.html' %}#}
+
+			</header>{% endif %}
+        {% if shop.suitenumber == '0' %}
+            <header>
+{#				<h1>Gallarz Investments Ltd <span>The capital Hub - Business Partner Records </span><span>{{ shop.businessname }} - Suite {{ shop.number }}</span></h1>#}
+
+{#                {% include 'tenantRecords/navbar.html' %}#}
+
+			</header>{% endif %}
+			<div style="padding: 20px" class="component">
+            <br>
+                <br>
+                <p style="font-size: 14pt"> _____________________________________________________________</p>
+                <p style="font-size: 14pt"> _____________________________________________________________</p>
+                <p style="font-size: 14pt"> _____________________________________________________________</p>
+                <p style="font-size: 14pt"> _____________________________________________________________</p>
+
+                <br>
+                <p style="font-size: 14pt"> Dear Sir/Ma, </p>
+                <h1><u>Offer Letter for Suite: {{ shop.suitenumber }} </u></h1>
+
+                    <p style="font-size: 14pt; text-align: justify">
+                    The capital Hub wishes to offer you a shop,
+                        Suite No. {{ shop.suitenumber }} for rent/letting in The capital Hub located
+                        at Plot 272, Bannex- Gwarinpa express way Mabushi Abuja.
+                        The suite measures {{ shop.squarefeet }} sqm and at the cost {{ shop.rate | floatformat:2| intcomma }}
+                        per square metre making a total of <b>{{ shop.rent | floatformat:2| intcomma  }}</b>
+                        excluding VAT and other charges.
+                     <br>
+                     <br>
+
+                        {% if shop.rent > shop.discountedrent %}
+                            The Suite is also eligible for a discount of :  {{ shop.discount | floatformat:2| intcomma  }}.
+
+                             <br> <br>
+						{% endif %}
+                        The total payable is thus the sum of: <b>{{ shop.totaltobepaid | floatformat:2| intcomma  }}</b>
+                        including ALL charges.<br><br>
+
+                        The above is subject to signing rent agreement with stated Terms and Conditions.
+                    <br>
+                    This offer is valid for one week after date of reciept.
+                    <br>
+                    <br>
+                    Please accept our congratulations.
+                    <br>
+                    See breakdown of suite below.
+                    <br>
+                    </p>
+
+{#                <table class="">#}
+{#                    <tbody>#}
+{##}
+{#                    <tr><th>Name</th><td>{{ shop.tenant.name }}</td></tr>#}
+{#                    <tr><th>Number</th><td>{{ shop.tenant.phonenumber }}</td></tr>#}
+{#                    <tr><th>Address</th><td>{{ shop.tenant.houseaddress }}</td></tr>#}
+{#                    </tbody>#}
+{#                </table>#}
+
+                <h1 style="font-size: 18pt">Suite Details</h1>
+				<table >
+                    <tbody>
+                        <tr>
+                            <th>Suite No</th> <td> {{ shop.businessname }} - Suite {{ shop.suitenumber }}</td>
+						</tr><tr>
+							<th>Rent</th> <td>{{ shop.rent | floatformat:2| intcomma  }}
+						</tr>{% if shop.rent > shop.discountedrent %}<tr>
+							<th>Discounted Rent</th> <td>{{ shop.discountedrent | floatformat:2| intcomma  }}
+						</tr>{% endif %}{% if shop.discount %}<tr>
+							<th>Disount</th> <td>{{ shop.discount | floatformat:2| intcomma }}</td>
+						</tr>{% endif %}<tr>
+							<th>Service Charge ({% widthratio shop.chargespercentages.servicechargepercentage  1 100 %}%)</th> <td>{{ shop.servicecharge | floatformat:2| intcomma }}
+						</tr><tr>
+							<th>Legal Fees ({% widthratio shop.chargespercentages.legalfeepercentage  1 100 %}%)</th> <td>{{ shop.legalfees | floatformat:2| intcomma }}
+						</tr><tr>
+							<th>VAT ({% widthratio shop.chargespercentages.vatpercentage  1 100 %}%)</th> <td>{{ shop.vat | floatformat:2| intcomma }}</td>
+						</tr>{% if shop.balancebroughtforward %}
+						  <tr>
+							<th>Other Charges</th> <td>{{ shop.balancebroughtforward | floatformat:2| intcomma }}</td>
+						</tr>{% endif %}<tr>
+							<th>Rate</th> <td>{{ shop.rate | floatformat:2| intcomma }}</td>
+						</tr><tr>
+							<th>Square Meters</th> <td>{{ shop.squarefeet | floatformat:2| intcomma }}</td>
+						</tr><tr>
+							<th>Payment Recieved</th> <td style="color: darkolivegreen">{{ shop.paymentrec | floatformat:2| intcomma }}</td>
+						</tr><tr>
+							<th>Outstanding Payment</th> <td style="color: red">{{ shop.outstandingpayment |floatformat:2 | intcomma }}</td>
+						</tr><tr>
+							<th>Total</th> <td><b>{{ shop.totaltobepaid | floatformat:2| intcomma  }}</b></td>
+						</tr><tr>
+							<th>Tenancy Start Day</th> <td>{{ shop.tenancystartdate  }}</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+{#                <h1>View Payments Made</h1>#}
+{#                <table class="">#}
+{#                    <tbody>#}
+{#                    <tr>#}
+{#                        <td> <a href="{% url 'tenantRecords:statements' shop.number%}"> Payments</a></td>#}
+{#                    </tr><tr>#}
+{#                        <td> <a href="{% url 'tenantRecords:revisions' shop.number %}"> View Revisions</a></td>#}
+{#                    </tr>#}
+{#                    </tbody>#}
+{#                </table>#}
+
+                <h1 style="font-size: 18pt">Bank Details For Payment</h1>
+                <table class="">
+                    <tbody>
+                    <tr>
+                        <td> Bank Name: GTBank</td> <td> Account Name: The Capital Hub </td> <td> Account Number: 0216194787 </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            <p style="font-size: 14pt">
+                Yours faithfully,
+                <br>
+                <br>
+                <br>
+                <br>
+                Fatima I. Galaudu
+                <br>
+                <i><b>Managing Director</b></i>
+            </p>
+
+
+
+
+			</div>
+
+		</div><!-- /container -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+		<script src="{% static "tenantRecords/js/jquery.stickyheader.js" %}"></script>
+		<script src="{% static "tenantRecords/js/jquery.ba-throttle-debounce.min.js" %}"></script>
+	</body>
+</html>

@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ shop.businessname }} -  Reminder Letter</title>
+</head>
+    {% load humanize %}
+    {% load static %}
+    {% include 'tenantRecords/headscripts.html' %}
+
+	<body>
+		<div class="container">
+			{% if shop.suitenumber != '0' %}
+            <header>
+{#				<h1>Gallarz Investments Ltd <span>The capital Hub - Business Partner Records </span><span>{{ shop.businessname }} - Suite {{ shop.suitenumber }}</span></h1>#}
+{#                {% include 'tenantRecords/navbar.html' %}#}
+
+			</header>{% endif %}
+        {% if shop.suitenumber == '0' %}
+            <header>
+{#				<h1>Gallarz Investments Ltd <span>The capital Hub - Business Partner Records </span><span>{{ shop.businessname }} - Suite {{ shop.number }}</span></h1>#}
+
+{#                {% include 'tenantRecords/navbar.html' %}#}
+
+			</header>{% endif %}
+			<div style="padding: 20px" class="component">
+            <br>
+                <br>
+                <p style="text-align: end; font-size: 14pt">{% now "jS F Y " %}</p>
+                <p style="font-size: 14pt"> {{ shop.tenant.name }}<br>
+                {{ shop.businessname }}<br>
+                Suite {{ shop.number }}<br>
+                The capital Hub, Ahmadu Bello Way<br>
+                Mabushi, Abuja.</p>
+
+                <br>
+                <p style="font-size: 14pt"> Dear Sir/Ma, </p>
+                <h3><u>Outstanding Payment for Suite {{ shop.suitenumber }} </u></h3>
+
+                    <p style="font-size: 14pt; text-align: justify">
+                    According to our records, there is an
+                        outstanding balance of ₦{{ shop.outstandingpayment | floatformat:2| intcomma }}
+                        for the {{ shop.tenancystartdate | date:"Y" }}/{{ shop.tenancyenddate | date:"Y" }} rent year.
+                        Please endeavor to pay the amount
+                        within ten days of the receipt of this letter to avoid any inconveniences.
+                        Account summary below. <br><br>
+                        {% if shop.rent > shop.discountedrent %}
+                            The was eligible for a discount of :  {{ shop.discount | floatformat:2| intcomma  }}.
+
+                             <br> <br>
+						{% endif %}
+                        Total Rent : ₦{{ shop.totaltobepaid | floatformat:2| intcomma }}
+                        <br>
+                        Total Paid: ₦{{ shop.paymentrecieved | floatformat:2| intcomma | default:0  }}
+                        <br>
+                        <b>Outstanding Balance: ₦{{ shop.outstandingpayment | floatformat:2| intcomma }} </b>
+                        <br>
+                     <br>
+                    Thank you for choosing The capital Hub
+                    <br>
+
+                    <br>
+                    </p>
+
+                <h4 >Bank Details For Payment</h4>
+                <table class="">
+                    <tbody>
+                    <tr>
+                        <td> Bank Name: GTBank</td> <td> Account Name: Gallarz Investments Ltd. </td> <td> Account Number: 0477447196 </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            <p style="font-size: 14pt">
+                Yours faithfully,
+                <br>
+                <br>
+                <br>
+                <br>
+                Fatima I. Galaudu
+                <br>
+                <i><b>Managing Director</b></i>
+            </p>
+
+
+
+
+			</div>
+
+		</div><!-- /container -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+		<script src="{% static "tenantRecords/js/jquery.stickyheader.js" %}"></script>
+		<script src="{% static "tenantRecords/js/jquery.ba-throttle-debounce.min.js" %}"></script>
+	</body>
+</html>

@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    {% load humanize %}
+    {% load static %}
+    {% include 'tenantRecords/headscripts.html' %}
+
+	<body>
+
+		<div class="container">
+			<header>
+				<h1>The capital Hub <span>Statement Payments for {{ shop.businessname }} Suite {{ shop.number }} </span></h1>
+                {% include 'tenantRecords/navbar.html' %}
+			</header>
+			<div class="">
+
+				<table class="">
+					<tbody>{% if shop %}
+                        {% if shop.payment.all %}
+                            {% for payment in shop.payment.all %}
+
+                            <tr><th>Bank Payment Depositor : {{ payment.depositor }} | Amount : {{ payment.amount| floatformat:2| intcomma  }} | Date: {{ payment.paymentdate | date:"M Y"}}</th></tr>
+                            <td>{{ payment.paymentnote }}</td>
+                            <tr> {% if payment.statementpicture %}
+                                <td><img src= "{{ payment.statementpicture.url }}" /></td>
+                            </tr>{% endif %}
+
+                            {% endfor %}
+                        {% else %}
+                            <td>No Payments made</td>
+                        {% endif %}
+
+
+                        {% if shop.invoice.all %}
+                            {% for invoice in shop.invoice.all %}
+
+                            <tr><th>Invoice Date of Issue : {{ invoice.issuedate }} </th></tr>
+                            <tr>{% if invoice.image %}
+                                <td><img style="width: 100%" src= "{{ invoice.image.url }}" /></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <td>No Invoice Uploaded </td>
+                        {% endif %}
+
+
+
+                    {% endif %}
+					</tbody>
+				</table>
+
+				<p class="filler"></p>
+			</div>
+
+		</div><!-- /container -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+		<script src="{% static "tenantRecords/js/jquery.stickyheader.js" %}"></script>
+		<script src="{% static "tenantRecords/js/jquery.ba-throttle-debounce.min.js" %}"></script>
+	</body>
+</html>

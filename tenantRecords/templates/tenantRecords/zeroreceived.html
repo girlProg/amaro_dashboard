@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+    {% load humanize %}
+    {% load static %}
+    {% include 'tenantRecords/headscripts.html' %}
+
+<body>
+		<div class="container">
+			<header>
+				<h1>The capital Hub <span>Zero Received Payments</span> </h1>
+                {% include 'tenantRecords/navbar.html' %}
+			</header>
+        </div>
+
+    <div class="component" >
+        <table class="" style="table-layout: fixed">
+            <thead>
+						<tr>
+							<th>Suite</th> <th>Shop Name</th><th>Payment Received</th><th>Total Payable</th>
+						</tr>
+			</thead>
+            <tbody>
+            {% for shop in shops %}
+                {% if shop.paymentrec == 0 %}
+                    <tr>
+                        <td>{{ shop.number }}</td>
+                        <td><a href="{% url 'tenantRecords:detail' shop.number %}">{{ shop.businessname }} </a></td>
+                        <td> {{ shop.paymentrec | floatformat:2| intcomma}} </td>
+                        <td> {{ shop.totaltobepaid | floatformat:2| intcomma}} </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

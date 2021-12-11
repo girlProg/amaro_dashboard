@@ -1,0 +1,28 @@
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="navbar-brand"><a href="{% url 'tenantRecords:directory' %}">Home</a></li>
+        <li class="navbar-brand"><a href="{% url 'tenantRecords:rentalyears' %}">Suites</a></li>
+        <li class="navbar-brand"><a href="{% url 'tenantRecords:contactdetails' %}">Outstanding Payments</a></li>
+        <li class="navbar-brand"><a href="{% url 'tenantRecords:addresses' %}">Addresses</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+        <li> <a href="{% url 'tenantRecords:logout'   %}" > <span class="glyphicon glyphicon-log-out"></span>{{ user }} Logout</a></li>
+        <li></li>
+        {% else %}
+        <li><a href="{% url 'tenantRecords:login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+         {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

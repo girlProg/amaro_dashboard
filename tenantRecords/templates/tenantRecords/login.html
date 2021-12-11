@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    {% load humanize %}
+    {% load static %}
+    {% include 'tenantRecords/headscripts.html' %}
+
+    <body>
+		<div class="container">
+			<header>
+				<h1>The capital Hub <span> Information System </span></h1>
+                {% include 'tenantRecords/navbar.html' %}
+			</header>
+
+
+                <div style="width: 1000px; margin: auto" id="login" >
+                        <form class="form-horizontal" name="LoginForm" action="{% url  'tenantRecords:login' %}" method="post">
+                        {% csrf_token %}
+                        {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}" />
+                        {% endif %}
+                        <div  class="control-group">
+                            <label class="control-label" for="username">Username</label>
+                            <div class="controls">
+                                <input type="text" id="username" name="username"  placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="password">Password</label>
+                            <div class="controls">
+                                <input type="password" name="password" id="password" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <button type="submit" class="btn">Login</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+        </div>
+        </body>

@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    {% load static %}
+    {% load humanize %}
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Capital Hub Information System</title>
+		<link rel="shortcut icon" href="../favicon.ico"/>
+
+		<link rel="stylesheet" type="text/css" href="{% static 'tenantRecords/css/normalize.css' %}"/>
+		<link rel="stylesheet" type="text/css" href="{% static 'tenantRecords/css/demo.css' %}"/>
+		<link rel="stylesheet" type="text/css" href="{% static 'tenantRecords/css/component.css' %}"/>
+
+		<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<h1>The capital Hub <span>Tenant Records</span></h1>
+
+			</header>
+			<div class="component">
+
+                <table class="">
+                    <tbody>
+                    <h1>Tenant Information</h1>
+                    <tr><th>Name</th><td>{{ shop.tenant.name }}</td></tr>
+                    <tr><th>Number</th><td>{{ shop.tenant.phonenumber }}</td></tr>
+                    <tr><th>Address</th><td>{{ shop.tenant.houseaddress }}</td></tr>
+                    </tbody>
+                </table>
+
+				<table class="">
+                    <h1>Suite Details</h1>
+                       <thead>
+                       <tr>
+							<th>Suite No</th> <td>{{ shop.number }}, {{ shop.businessname }}, {{ shop.tenant.name }}</td>
+						</tr>
+                        <tr>
+							<th>Total</th> <td>{{ shop.totaltobepaid | floatformat:2| intcomma  }}</td>
+						</tr><tr>
+							<th>Rent</th> <td>{{ shop.rent | floatformat:2| intcomma  }}</td> <td>{{ shop.haspaidrent }}</td>
+						</tr><tr>
+							<th>Service Charge</th> <td>{{ shop.servicecharge | floatformat:2| intcomma }}</td><td>{{ shop.haspaidservicecharge }}</td><td>{{ shop.chargespercentages.servicechargepercentage}}    </td>
+						</tr><tr>
+							<th>Legal Fees</th> <td>{{ shop.legalfees | floatformat:2| intcomma }}</td><td>{{ shop.haspaidlegalfees }}</td>
+						</tr><tr>
+							<th>VAT</th> <td>{{ shop.vat | floatformat:2| intcomma }}</td> <td>{{ shop.haspaidvat }}</td>
+						</tr><tr>
+							<th>Disount</th> <td>{{ shop.discount | floatformat:2| intcomma }}</td>
+						</tr><tr>
+							<th>Rate</th> <td>{{ shop.rate | floatformat:2| intcomma }}</td>
+						</tr>><tr>
+							<th>Payment Recieved</th> <td>{{ shop.paymentrec | floatformat:2| intcomma }}</td>
+						</tr><tr>
+							<th>Notes</th> <td>{{ shop.notes }}</td>
+						</tr><tr>
+							<th>Outstanding Payment</th> <td>{{ shop.outstandingpayment |floatformat:2 | intcomma }}</td>
+						</tr>
+
+					</thead>
+				</table>
+
+				<p class="filler"></p>
+			</div>
+
+		</div><!-- /container -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+		<script src="{% static "tenantRecords/js/jquery.stickyheader.js" %}"></script>
+		<script src="{% static "tenantRecords/js/jquery.ba-throttle-debounce.min.js" %}"></script>
+	</body>
+</html>

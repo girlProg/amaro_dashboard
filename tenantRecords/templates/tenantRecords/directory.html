@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    {% load humanize %}
+    {% load static %}
+    {% include 'tenantRecords/headscripts.html' %}
+
+	<body>
+		<div class="container">
+			<header>
+				<h1>The capital Hub <span>Directory</span> </h1>
+                {% include 'tenantRecords/navbar.html' %}
+			</header>
+			<div class="component">
+
+                <table class="">
+                    <thead>
+                    <h1>What would you like to view?</h1>
+                    <tr><th ><a style="color: #ffffff" href="{% url 'tenantRecords:rentalyears'%}"> Suite Records </a></th></tr>
+                    <tr><th ><a style="color: #ffffff" href="{% url 'tenantRecords:pendingsc' %}"> Outstanding Service Charge Payments</a></th></tr>
+                    <tr><th ><a style="color: lightskyblue" href="#">Outstanding Legal Payments(coming soon) </a></th></tr>
+                    <tr><th ><a style="color: #ffffff" href="{% url 'tenantRecords:contactdetails' %}">Tenant Phone Numbers </a></th></tr>
+                    <tr><th ><a style="color: #ffffff" href="{% url 'tenantRecords:addresses' %}">Tenant Addresses </a></th></tr>
+                    <tr><th ><a style="color: #ffffff" href="{% url 'tenantRecords:zeropaid' %}">Zero paid </a></th></tr>
+                    <tr><th ><a style="color: #ffffff" href="{% url 'tenantRecords:totalreceived' %}">All Received Payments </a></th></tr>
+                    <tr><th ><a style="color: #ffffff" href="{% url 'tenantRecords:finbreakdown' %}">Fin Breakdown </a></th></tr>
+                    </thead>
+                </table>
+
+				<p class="filler"></p>
+			</div>
+
+		</div><!-- /container -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+		<script src="{% static "tenantRecords/js/jquery.stickyheader.js" %}"></script>
+		<script src="{% static "tenantRecords/js/jquery.ba-throttle-debounce.min.js" %}"></script>
+	</body>
+</html>
