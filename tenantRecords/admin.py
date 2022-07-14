@@ -28,10 +28,13 @@ class ShopAdmin(VersionAdmin):
     fieldsets = [
         (None,{'fields': ['suitenumber', 'number', 'tenant', ('tenancystartdate', 'tenancyenddate','tenancyduration'),
                           ('businessname', 'lineofbusiness'), 'squarefeet', 'totaltobepaid','vat', 'servicecharge', 'floor', 'rate', 'discount', 'balancebroughtforward',
-                          'chargespercentages', ('haspaidvat','haspaidrent', 'haspaidlegalfees', 'haspaidservicecharge') ,'notes']
+                          'chargespercentages', ('haspaidvat','haspaidrent', 'haspaidlegalfees', 'haspaidservicecharge') ,'notes',
+                          'percentpaid'
+                          ]
         })
         ,
     ]
+    list_display = ['suitenumber', 'number', 'tenant']
     inlines = [InvoiceInline, PaymentsInline]
     #list_display = ('number', 'tenant')
 
@@ -43,8 +46,13 @@ class TenantAdmin(VersionAdmin):
     ]
     inlines = [LetterInline,]
 
+
+class SCExpenceAdmin(VersionAdmin):
+    list_display = [ 'date', 'shop','vendor','amount','description','status']
+
+
 admin.site.register(models.Shop, ShopAdmin)
 admin.site.register(models.Tenant, TenantAdmin)
 admin.site.register(models.Vendor)
-admin.site.register(models.SCExpense)
+admin.site.register(models.SCExpense, SCExpenceAdmin)
 

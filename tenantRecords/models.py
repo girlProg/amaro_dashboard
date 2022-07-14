@@ -6,6 +6,9 @@ from copy import deepcopy
 from django.utils import timezone
 
 
+class BaseModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Charges(models.Model):
@@ -36,7 +39,7 @@ class Shop (models.Model):
     number = models.CharField(max_length=100, primary_key=True)
     suitenumber = models.CharField(max_length=100, default='0')
     cnumber = models.CharField(max_length=100, default='000', blank=True, null=True)
-    tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE)
+    tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='shops')
     tenancystartdate = models.DateField('date tenancy starts')
     tenancyenddate = models.DateField('date tenancy ends')
     tenancyduration = models.IntegerField(default=1)
@@ -70,7 +73,7 @@ class Shop (models.Model):
     servicechargerec = models.FloatField(default=0)
     legalrec = models.FloatField(default=0)
     vatrec = models.FloatField(default=0)
-    # percentpaid = models.FloatField(default=0)
+    percentpaid = models.FloatField(default=0,)
 
     deleted= models.BooleanField(default=False,editable=False)
 
@@ -95,11 +98,11 @@ class Shop (models.Model):
         if self.discountedrent:
             self.vat = self.discountedrent * self.chargespercentages.vatpercentage
             self.legalfees = self.discountedrent * self.chargespercentages.legalfeepercentage
-            # self.percentpaid = (self.discountedrent - self.paymentrec) * 100
+            self.percentpaid = (self.paymentrec / self.totaltobepaid) * 100
         else:
             self.vat = self.rent * self.chargespercentages.vatpercentage
             self.legalfees = self.rent * self.chargespercentages.legalfeepercentage
-            # self.percentpaid = (self.rent - self.paymentrec) * 100
+            self.percentpaid = (self.paymentrec / self.totaltobepaid) * 100
 
 
         self.servicecharge = (self.squarefeet * 35000) * self.chargespercentages.servicechargepercentage
@@ -135,9 +138,15 @@ class Shop (models.Model):
         return self.number + '-' + self.businessname
 
 
+
+class PaymentMethod (BaseModel):
+    method = models.CharField(default= "", max_length=500, blank=True, null=True)
+
+
 class Payment (models.Model):
     depositor = models.CharField(max_length=200)
     shop = models.ForeignKey(Shop, related_name='payment', on_delete=models.CASCADE)
+    method = models.ForeignKey(PaymentMethod, related_name='payment', on_delete=models.CASCADE,null=True, blank=True )
     amount = models.FloatField(default=0)
     paymentdate = models.DateField('date of payment made')
     statementpicture = models.ImageField(upload_to='Images/Statements', default="", null=True, blank=True)
@@ -316,3 +325,6 @@ class SCExpense (models.Model):
 
     def __str__(self):
         return str(self.date)
+
+
+
